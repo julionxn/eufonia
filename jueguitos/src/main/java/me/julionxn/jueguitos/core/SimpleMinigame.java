@@ -2,6 +2,7 @@ package me.julionxn.jueguitos.core;
 
 import me.julionxn.jueguitos.core.networking.ServerPackets;
 import me.julionxn.jueguitos.core.networking.packets.S2C_GameStateEventPacket;
+import me.julionxn.jueguitos.core.teams.Team;
 import me.julionxn.jueguitos.core.teams.TeamsInfo;
 import me.julionxn.jueguitos.core.teams.TeamsSetup;
 import me.julionxn.jueguitos.core.timer.BasicTimer;
@@ -13,10 +14,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class SimpleMinigame implements Minigame {
 
@@ -100,7 +98,7 @@ public abstract class SimpleMinigame implements Minigame {
         stop();
         onReset();
         if (teamsInfo != null){
-            teamsInfo.resetTeams();
+            players.forEach(teamsInfo::removeTeamFromPlayer);
         }
         PacketByteBuf buf = S2C_GameStateEventPacket.buf(this, S2C_GameStateEventPacket.RESET_EVENT);
         PacketByteBuf finalBuf = resetGameStateEventBuf(buf);
@@ -149,6 +147,20 @@ public abstract class SimpleMinigame implements Minigame {
 
     protected void removeGlowing(PlayerEntity player){
         player.removeStatusEffect(StatusEffects.GLOWING);
+    }
+
+    protected Optional<PlayerTeams> getTeamOfPlayers(PlayerEntity source, PlayerEntity target){
+        if (teamsInfo == null) return Optional.empty();
+        Optional<Team> sourceTeamOpt = teamsInfo.getTeamOfPlayer(source);
+        Optional<Team> targetTeamOpt = teamsInfo.getTeamOfPlayer(target);
+        if (sourceTeamOpt.isEmpty() || targetTeamOpt.isEmpty()) return Optional.empty();
+        Team sourceTeam = sourceTeamOpt.get();
+        Team targetTeam = targetTeamOpt.get();
+        return Optional.of(new PlayerTeams(sourceTeam, targetTeam));
+    }
+
+    protected record PlayerTeams(Team sourceTeam, Team targetTeam){
+
     }
 
 }

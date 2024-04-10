@@ -20,6 +20,10 @@ public class BasicTimer {
         return (int) (getRemainingMills() / 1000);
     }
 
+    public boolean isDone(){
+        return getRemainingMills() <= 0;
+    }
+
     public void run(){
         running = true;
     }

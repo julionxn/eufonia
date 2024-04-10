@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jueguitos.test.iml" filepath="$PROJECT_DIR$/.idea/modules/jueguitos.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jueguitosclient.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jueguitosclient.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jueguitosclient.test.iml" filepath="$PROJECT_DIR$/.idea/modules/jueguitosclient.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.julionxn.jueguitos.jueguitos.main.iml" filepath="$PROJECT_DIR$/.idea/modules/me.julionxn.jueguitos.jueguitos.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.julionxn.jueguitos.jueguitos.test.iml" filepath="$PROJECT_DIR$/.idea/modules/me.julionxn.jueguitos.jueguitos.test.iml" />
     </modules>
   </component>
 </project>

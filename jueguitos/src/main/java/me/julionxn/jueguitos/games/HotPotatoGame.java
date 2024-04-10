@@ -6,11 +6,12 @@ import me.julionxn.jueguitos.core.teams.TeamColor;
 import me.julionxn.jueguitos.core.teams.TeamsSetup;
 import me.julionxn.jueguitos.core.teams.distribution.Distribution;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 public class HotPotatoGame extends SimpleMinigame {
 
@@ -43,22 +44,6 @@ public class HotPotatoGame extends SimpleMinigame {
     }
 
     @Override
-    public void onPlayerHitAnother(PlayerEntity source, PlayerEntity target) {
-        if (teamsInfo == null) return;
-        Optional<Team> sourceTeamOpt = teamsInfo.getTeamOfPlayer(source);
-        Optional<Team> targetTeamOpt = teamsInfo.getTeamOfPlayer(target);
-        if (sourceTeamOpt.isEmpty() || targetTeamOpt.isEmpty()) return;
-        Team sourceTeam = sourceTeamOpt.get();
-        Team targetTeam = targetTeamOpt.get();
-        if (sourceTeam.id().equals(POTATO_TEAM) && targetTeam.id().equals(CLEAN_TEAM)){
-            despotatoed(source);
-            teamsInfo.addPlayerToTeam(source, targetTeam);
-            potatoed(target);
-            teamsInfo.addPlayerToTeam(target, sourceTeam);
-        }
-    }
-
-    @Override
     protected void onStart() {
         if (teamsInfo == null) return;
         teamsInfo.getPlayersInTeam(players, POTATO_TEAM).forEach(this::potatoed);
@@ -73,20 +58,45 @@ public class HotPotatoGame extends SimpleMinigame {
     }
 
     @Override
+    public void tick() {
+        if (timer == null) return;
+        if (timer.isDone()){
+            players.forEach(player -> player.sendMessage(Text.of("Juego terminado.")));
+            reset();
+        }
+    }
+
+    @Override
     protected void onReset() {
         startingPotatoes = 1;
         if (teamsInfo == null) return;
         teamsInfo.getPlayersInTeam(players, POTATO_TEAM).forEach(this::despotatoed);
-        players.forEach(teamsInfo::removeTeamFromPlayer);
+    }
+
+    @Override
+    public void onPlayerHitAnother(PlayerEntity source, PlayerEntity target) {
+        if (teamsInfo == null) return;
+        getTeamOfPlayers(source, target).ifPresent(teams -> {
+            Team targetTeam = teams.targetTeam();
+            Team sourceTeam = teams.sourceTeam();
+            if (sourceTeam.id().equals(POTATO_TEAM) && targetTeam.id().equals(CLEAN_TEAM)){
+                despotatoed(source);
+                teamsInfo.addPlayerToTeam(source, targetTeam);
+                potatoed(target);
+                teamsInfo.addPlayerToTeam(target, sourceTeam);
+            }
+        });
     }
 
     private void potatoed(PlayerEntity player){
         addGlowing(player);
+        player.giveItemStack(new ItemStack(Items.BAKED_POTATO, 1));
         player.sendMessage(Text.of("Tienes la patata."), true);
     }
 
     private void despotatoed(PlayerEntity player){
         removeGlowing(player);
+        player.getInventory().clear();
         player.sendMessage(Text.of("Ya no tienes la patata."), true);
     }
 

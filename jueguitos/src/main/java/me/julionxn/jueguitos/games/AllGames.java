@@ -7,6 +7,8 @@ public class AllGames {
 
     public static void register(){
         register(new HotPotatoGame());
+        register(new TailsGame());
+        register(new DuckGooseGame());
     }
 
     private static void register(Minigame minigame){

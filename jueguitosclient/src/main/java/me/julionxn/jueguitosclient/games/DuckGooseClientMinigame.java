@@ -1,16 +1,13 @@
 package me.julionxn.jueguitosclient.games;
 
 import me.julionxn.jueguitosclient.core.BasicClientMinigame;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.Text;
 
-public class HotPotatoClientGame extends BasicClientMinigame {
-
+public class DuckGooseClientMinigame extends BasicClientMinigame {
     @Override
     public String getId() {
-        return "hotpotato";
+        return "duckgoose";
     }
 
     @Override
@@ -32,5 +29,4 @@ public class HotPotatoClientGame extends BasicClientMinigame {
     public void onPlayerMove(PlayerEntity player) {
 
     }
-
 }
