@@ -1,19 +1,19 @@
-package me.julionxn.jueguitosclient.games.freezers.mixins;
+package me.julionxn.jueguitosclient.games.freezers.mixin;
 
 import me.julionxn.jueguitosclient.games.freezers.util.Freeze;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.input.KeyboardInput;
+import net.minecraft.client.Mouse;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(KeyboardInput.class)
-public class KeyboardInputMixin {
+@Mixin(Mouse.class)
+public class MouseMixin {
 
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    private void move(boolean slowDown, float f, CallbackInfo ci){
+    @Inject(method = "updateMouse", at = @At("HEAD"), cancellable = true)
+    private void update(CallbackInfo ci){
         MinecraftClient client = MinecraftClient.getInstance();
         if (client == null) return;
         PlayerEntity player = client.player;

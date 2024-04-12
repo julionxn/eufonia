@@ -1,4 +1,4 @@
-package me.julionxn.jueguitosclient.games.freezers.mixins;
+package me.julionxn.jueguitosclient.games.freezers.mixin;
 
 import me.julionxn.jueguitosclient.games.freezers.util.Freeze;
 import net.minecraft.client.network.ClientPlayerEntity;

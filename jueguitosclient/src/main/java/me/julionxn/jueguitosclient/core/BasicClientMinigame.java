@@ -41,4 +41,5 @@ public abstract class BasicClientMinigame implements ClientMinigame {
     public boolean isRunning() {
         return running;
     }
+
 }

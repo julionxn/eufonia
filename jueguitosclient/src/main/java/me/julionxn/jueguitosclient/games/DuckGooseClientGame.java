@@ -1,10 +1,9 @@
 package me.julionxn.jueguitosclient.games;
 
 import me.julionxn.jueguitosclient.core.BasicClientMinigame;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 
-public class DuckGooseClientMinigame extends BasicClientMinigame {
+public class DuckGooseClientGame extends BasicClientMinigame {
     @Override
     public String getId() {
         return "duckgoose";
@@ -25,8 +24,4 @@ public class DuckGooseClientMinigame extends BasicClientMinigame {
 
     }
 
-    @Override
-    public void onPlayerMove(PlayerEntity player) {
-
-    }
 }

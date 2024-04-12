@@ -7,6 +7,7 @@ import me.julionxn.jueguitos.core.networking.ServerPackets;
 import me.julionxn.jueguitos.games.AllGames;
 import me.julionxn.jueguitos.games.freezers.command.FreezeCommand;
 import me.julionxn.jueguitos.games.freezers.networking.FreezersServerPackets;
+import me.julionxn.jueguitos.games.lights.networking.LightsServerPackets;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.slf4j.Logger;
@@ -28,6 +29,8 @@ public class Jueguitos implements DedicatedServerModInitializer {
 		//Games
 		FreezersServerPackets.register();
 		CommandRegistrationCallback.EVENT.register(FreezeCommand::register);
+
+		LightsServerPackets.register();
 	}
 
 }

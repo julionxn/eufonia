@@ -1,7 +1,6 @@
 package me.julionxn.jueguitosclient.games;
 
 import me.julionxn.jueguitosclient.core.BasicClientMinigame;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 
 public class HotPotatoClientGame extends BasicClientMinigame {
@@ -23,11 +22,6 @@ public class HotPotatoClientGame extends BasicClientMinigame {
 
     @Override
     protected void onReset(PacketByteBuf buf) {
-
-    }
-
-    @Override
-    public void onPlayerMove(PlayerEntity player) {
 
     }
 
