@@ -26,11 +26,11 @@ public abstract class SimpleMinigame implements Minigame {
     protected TeamsInfo teamsInfo;
     protected Set<PlayerEntity> players;
 
+    /**
+     * @return La cantidad de tiempo en segundos que durará el minijuego.
+     * Si se pasa como argumento null, no se creará un contador.
+     */
     protected abstract @Nullable Integer secondsOfGame();
-
-    public void start(Set<PlayerEntity> players) {
-        start(players, null);
-    }
 
     @Override
     public boolean start(Set<PlayerEntity> players, @Nullable HashMap<String, String> args) {
@@ -48,13 +48,26 @@ public abstract class SimpleMinigame implements Minigame {
         return true;
     }
 
+    /**
+     * @param buf El buf que será enviado al cliente al iniciar el juego.
+     * @return El mismo buf.
+     */
     protected PacketByteBuf startGameStateEventBuf(PacketByteBuf buf){
         return buf;
     }
 
+    /**
+     * Ejecutado después de que se empezó el minijuego.
+     */
     protected abstract void onStart();
 
+    /**
+     * Cargar los equipos y crear el contador.
+     * @param players Los jugadores que jugarán.
+     * @param args Argumentos extra.
+     */
     private void setup(Set<PlayerEntity> players, @Nullable HashMap<String, String> args){
+        onSetup(args);
         TeamsSetup teamsSetup = teamsSetup(new TeamsSetup());
         teamsInfo = new TeamsInfo(teamsSetup);
         setupTeams(players);
@@ -62,9 +75,12 @@ public abstract class SimpleMinigame implements Minigame {
         if (time != null){
             timer = new BasicTimer(time);
         }
-        onSetup(args);
     }
 
+    /**
+     * Cargar los equipos.
+     * @param players Los jugadores.
+     */
     private void setupTeams(Set<PlayerEntity> players){
         if (teamsInfo == null) return;
         List<PlayerEntity> playersList = new ArrayList<>(players);
@@ -72,6 +88,10 @@ public abstract class SimpleMinigame implements Minigame {
         this.players = players;
     }
 
+    /**
+     * Ejecutado antes de que se cargen los equipos y el contador.
+     * @param args Argumentos extras.
+     */
     protected abstract void onSetup(@Nullable HashMap<String, String> args);
 
     @Override
@@ -86,10 +106,17 @@ public abstract class SimpleMinigame implements Minigame {
         return true;
     }
 
+    /**
+     * @param buf El buf que será enviado al cliente al detener el juego.
+     * @return El mismo buf.
+     */
     protected PacketByteBuf stopGameStateEventBuf(PacketByteBuf buf){
         return buf;
     }
 
+    /**
+     * Ejecutado después de que se inició el minijuego.
+     */
     protected abstract void onStop();
 
     @Override
@@ -105,10 +132,17 @@ public abstract class SimpleMinigame implements Minigame {
         players.forEach(player -> sendGameStateEventPacket(player, finalBuf));
     }
 
+    /**
+     * @param buf El buf que será enviado al cliente al resetear el juego.
+     * @return El mismo buf.
+     */
     protected PacketByteBuf resetGameStateEventBuf(PacketByteBuf buf){
         return buf;
     }
 
+    /**
+     * Ejecutado antes de que se resetee el minijuego.
+     */
     protected abstract void onReset();
 
     private void sendGameStateEventPacket(PlayerEntity player, PacketByteBuf buf){
@@ -116,10 +150,12 @@ public abstract class SimpleMinigame implements Minigame {
                         ServerPackets.S2C_GAME_STATE_EVENT.getIdentifier(), buf);
     }
 
+    @Override
     public boolean isRunning() {
         return playing || !cleared;
     }
 
+    @Override
     public boolean isPlaying(){
         return playing;
     }
@@ -136,15 +172,16 @@ public abstract class SimpleMinigame implements Minigame {
         return teamsInfo;
     }
 
-    @Override
-    public Set<PlayerEntity> getPlayers() {
-        return players;
-    }
-
+    /**
+     * @param player Un jugador al que se le añadirá el efecto de poción de Glowing
+     */
     protected void addGlowing(PlayerEntity player){
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 0x989680, 0, false, false));
     }
 
+    /**
+     * @param player El jugador al que se le quitará el efecto de poción de Glowing.
+     */
     protected void removeGlowing(PlayerEntity player){
         player.removeStatusEffect(StatusEffects.GLOWING);
     }

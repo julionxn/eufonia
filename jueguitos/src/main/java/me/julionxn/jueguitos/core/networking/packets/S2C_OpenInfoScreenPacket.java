@@ -15,6 +15,9 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Paquete usado para solicitar al client que se abra la ventana de info.
+ */
 public class S2C_OpenInfoScreenPacket implements S2CPacket {
 
     private static final Identifier ID = new Identifier(Jueguitos.ID, "open_info_screen");
@@ -24,6 +27,10 @@ public class S2C_OpenInfoScreenPacket implements S2CPacket {
         return ID;
     }
 
+    /**
+     * @param minigame La instancia del minigame.
+     * @return El paquete correspondiente.
+     */
     public static PacketByteBuf buf(Minigame minigame){
         PacketByteBuf buf = PacketByteBufs.create();
         TeamsInfo info = minigame.getTeamsInfo();

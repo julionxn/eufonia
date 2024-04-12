@@ -8,6 +8,9 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
+/**
+ * Paquete usado para avisar a los clientes un evento de estado de los minijuegos.
+ */
 public class S2C_GameStateEventPacket implements S2CPacket {
 
     private static final Identifier ID = new Identifier(Jueguitos.ID, "game_state_event");
@@ -21,6 +24,12 @@ public class S2C_GameStateEventPacket implements S2CPacket {
         return ID;
     }
 
+    /**
+     * @param game La instancia del minijuego.
+     * @param event El entero al que corresponde el evento.
+     * @return El correspondiente paquete.
+     * @see S2C_GameStateEventPacket Ver los enteros a los cuales corresponden los eventos.
+     */
     public static PacketByteBuf buf(Minigame game, int event){
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(game.getId());

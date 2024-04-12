@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class HotPotatoGame extends SimpleMinigame {
     }
 
     @Override
-    public TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
+    public @NotNull TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
         return teamsSetup.addTeam(new Team(POTATO_TEAM, TeamColor.RED, Distribution.fixed(startingPotatoes)))
                 .addTeam(new Team(CLEAN_TEAM, TeamColor.BLUE, Distribution.remaining()));
     }

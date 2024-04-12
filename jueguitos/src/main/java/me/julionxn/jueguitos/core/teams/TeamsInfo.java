@@ -7,6 +7,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Representa ya los equipos formados dentro de un minijuego.
+ */
 public class TeamsInfo {
 
     private static final Random RANDOM = new Random();
@@ -155,30 +158,53 @@ public class TeamsInfo {
         return Optional.ofNullable(players.get(player.getUuid()));
     }
 
+    /**
+     * @param id del equipo
+     * @return Si existe, el equipo al cual corresponde el id.
+     */
     public Optional<Team> getTeam(String id){
         return teams.stream().filter(team -> team.id().equals(id)).findFirst();
     }
 
+    /**
+     * @return Todos los equipos.
+     */
     public Set<Team> getTeams(){
         return teams;
     }
 
+    /**
+     * @return Un mapa relacionado entre los UUIDS de los jugadores y se respectivo equipo
+     */
     public HashMap<UUID, Team> getPlayers(){
         return players;
     }
 
+    /**
+     * @param players El conjunto de jugadores
+     * @param team El equipo
+     * @return Todos los jugadores dentro del conjunto de jugadores pasado como argumento que se encuentren
+     * dentro del equipo.
+     */
+    public Set<PlayerEntity> getPlayersInTeam(Set<PlayerEntity> players, Team team){
+        return getPlayersInTeam(players, team.id());
+    }
+
+    /**
+     * @param players El conjunto de jugadores
+     * @param id El id del equipo
+     * @return Todos los jugadores dentro del conjunto de jugadores pasado como argumento que se encuentren
+     * dentro del equipo al cual corresponde el id.
+     */
     public Set<PlayerEntity> getPlayersInTeam(Set<PlayerEntity> players, String id){
         return players.stream()
                 .filter(player -> this.players.get(player.getUuid()).id().equals(id))
                 .collect(Collectors.toSet());
     }
 
-    public Set<PlayerEntity> getPlayersInTeam(Set<PlayerEntity> players, Team team){
-        return players.stream()
-                .filter(player -> this.players.get(player.getUuid()).id().equals(team.id()))
-                .collect(Collectors.toSet());
-    }
-
+    /**
+     * Resetear todos los equipos.
+     */
     public void resetTeams(){
         teams.clear();
         players.clear();

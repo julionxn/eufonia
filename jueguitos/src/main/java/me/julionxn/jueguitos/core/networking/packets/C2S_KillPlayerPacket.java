@@ -9,6 +9,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.UUID;
 
+/**
+ * Paquete usado para matar a un jugador.
+ */
 public class C2S_KillPlayerPacket implements C2SPacket {
 
     private static final Identifier ID = new Identifier(Jueguitos.ID, "kill_player");

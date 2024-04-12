@@ -13,26 +13,47 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Clase encargada de manejar y contener al juego que se encuentra activo en la parte del servidor.
+ * Además, se encarga de contener a todos los jugadores que son parte del sistema de minijuegos.
+ */
 public class GameStateManager {
 
     private final HashMap<String, Minigame> registeredGames = new HashMap<>();
     private Minigame activeMinigame;
     private final Set<PlayerEntity> players = new HashSet<>();
 
+    /**
+     * Registrar un minijuego del lado del servidor.
+     * @param minigame La instancia de un Minigame
+     */
     public void registerGame(Minigame minigame){
         registeredGames.put(minigame.getId(), minigame);
     }
 
+    /**
+     * @return Todos los minijuegos que han sido registrados.
+     */
     public HashMap<String, Minigame> getRegisteredGames(){
         return registeredGames;
     }
 
+    /**
+     * Establecer el minijuego actual.
+     * @param id Id del minijuego.
+     * @return Si la operación ha sido exitosa.
+     */
     public boolean setActiveMinigame(String id){
         if (!registeredGames.containsKey(id)) return false;
         Minigame minigame = registeredGames.get(id);
         return setActiveMinigame(minigame);
     }
 
+    /**
+     * Establecer el minijuego actual.
+     * @param minigame La instancia del minijuego.
+     * @return Si la operación ha sido exitosa.
+     */
     public boolean setActiveMinigame(Minigame minigame){
         if (activeMinigame == null) {
             activeMinigame = minigame;
@@ -47,6 +68,9 @@ public class GameStateManager {
         return true;
     }
 
+    /**
+     * Mandar a los jugadores el paquete correspondiente actualizando el minijuego actual.
+     */
     private void updateClientsActiveGame(){
         PacketByteBuf buf = S2C_GameStateEventPacket.buf(activeMinigame, S2C_GameStateEventPacket.CHANGE_GAME_EVENT);
         for (PlayerEntity player : players) {
@@ -56,16 +80,28 @@ public class GameStateManager {
         }
     }
 
+    /**
+     * @return El minijuego activo.
+     */
     @Nullable
     public Minigame getActiveMinigame(){
         return activeMinigame;
     }
 
+    /**
+     * Iniciar el minijuego activo.
+     * @param args Argumentos extras, cada argumento separado por un coma (,) de la forma key=value
+     * @return Si la operación ha sido exitosa.
+     */
     public boolean startGame(@Nullable String args){
         if (activeMinigame == null) return false;
         return activeMinigame.start(players, parseArgs(args));
     }
 
+    /**
+     * @param args Argumentos extras.
+     * @return Los argumentos parseados key-value
+     */
     private HashMap<String, String> parseArgs(@Nullable String args){
         if (args == null) return null;
         if (args.isEmpty()) return null;
@@ -79,31 +115,46 @@ public class GameStateManager {
         return argsMap;
     }
 
+    /**
+     * Detener el minijuego actual.
+     * @return Si la operación ha sido exitosa.
+     */
     public boolean stopGame(){
         if (activeMinigame == null) return false;
         return activeMinigame.stop();
     }
 
+    /**
+     * Resetear minijuego actual.
+     * @return Si la operación ha sido exitosa.
+     */
     public boolean resetGame(){
         if (activeMinigame == null) return false;
         activeMinigame.reset();
         return true;
     }
 
+    /**
+     * Añadir un jugador al sistema.
+     * @param player El jugador.
+     */
     public void joinPlayer(PlayerEntity player){
         players.add(player);
     }
 
+    /**
+     * Remover un jugador del sistema.
+     * @param player El jugador.
+     */
     public void leavePlayer(PlayerEntity player){
         players.remove(player);
     }
 
+    /**
+     * Remover todos los jugadores del sistema.
+     */
     public void clearPlayers(){
         players.clear();
-    }
-
-    public Set<PlayerEntity> getPlayers(){
-        return players;
     }
 
     private static class SingletonHolder {

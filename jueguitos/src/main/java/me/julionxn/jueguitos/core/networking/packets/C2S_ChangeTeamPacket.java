@@ -12,6 +12,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.UUID;
 
+/**
+ * Paquete usado para cambiar a un jugador de equipo.
+ */
 public class C2S_ChangeTeamPacket implements C2SPacket {
 
     private static final Identifier ID = new Identifier(Jueguitos.ID, "change_team");

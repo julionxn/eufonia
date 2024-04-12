@@ -7,6 +7,7 @@ import me.julionxn.jueguitos.core.teams.TeamsSetup;
 import me.julionxn.jueguitos.core.teams.distribution.Distribution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class DuckGooseGame extends SimpleMinigame {
     }
 
     @Override
-    public TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
+    public @NotNull TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
         return teamsSetup.addTeam(new Team(DUCKS_TEAM, TeamColor.YELLOW, Distribution.remaining()))
                 .addTeam(new Team(GOOSE_TEAM, TeamColor.BLUE, Distribution.fixed(1)))
                 .addTeam(new Team(HUNTER_TEAM, TeamColor.RED, Distribution.fixed(1)));

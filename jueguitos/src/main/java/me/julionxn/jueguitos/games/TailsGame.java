@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class TailsGame extends SimpleMinigame {
     }
 
     @Override
-    public TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
+    public @NotNull TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
         return teamsSetup.addTeam(new Team(TAILS_TEAM, TeamColor.YELLOW, Distribution.remaining()))
                 .addTeam(new Team(CLEAR_TEAM, TeamColor.RED, Distribution.remaining()));
     }

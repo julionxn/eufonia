@@ -8,6 +8,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
+/**
+ * Paquete usado para actualizar en el client el estado actual del minijuego activo.
+ */
 public class S2C_GameStateEventPacket implements S2CPacket {
 
     private static final Identifier ID = new Identifier(JueguitosClient.ID, "game_state_event");

@@ -6,6 +6,7 @@ import me.julionxn.jueguitos.core.teams.TeamColor;
 import me.julionxn.jueguitos.core.teams.TeamsSetup;
 import me.julionxn.jueguitos.core.teams.distribution.Distribution;
 import net.minecraft.entity.player.PlayerEntity;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class LightsGame extends SimpleMinigame {
     }
 
     @Override
-    public TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
+    public @NotNull TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
         return teamsSetup.addTeam(new Team("winners", TeamColor.BLUE, Distribution.remaining()))
                 .addTeam(new Team("losers", TeamColor.RED, Distribution.fixed(0)));
     }

@@ -9,6 +9,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.UUID;
 
+/**
+ * Paquete usado para que el servidor cambie el equipo de un jugador.
+ */
 public class C2S_ChangeTeamPacket implements C2SPacket {
 
     private static final Identifier ID = new Identifier(JueguitosClient.ID, "change_team");
@@ -18,6 +21,11 @@ public class C2S_ChangeTeamPacket implements C2SPacket {
         return ID;
     }
 
+    /**
+     * @param newTeam El Team al cual será cambiado.
+     * @param uuid El UUID del jugador a cambiar.
+     * @return El paquete correspondiente.
+     */
     public static PacketByteBuf buf(Team newTeam, UUID uuid){
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(newTeam.id());

@@ -13,6 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Paquete recibido desde el servidor para solicitar abrir la ventana de info.
+ */
 public class S2C_OpenInfoScreenPacket implements S2CPacket {
 
     private static final Identifier ID = new Identifier(JueguitosClient.ID, "open_info_screen");
