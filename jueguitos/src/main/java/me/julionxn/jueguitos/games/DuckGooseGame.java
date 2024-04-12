@@ -72,4 +72,13 @@ public class DuckGooseGame extends SimpleMinigame {
 
     }
 
+    @Override
+    public void tick() {
+        if (timer == null) return;
+        if (timer.isDone()){
+            players.forEach(player -> player.sendMessage(Text.of("Juego terminado.")));
+            reset();
+        }
+    }
+
 }

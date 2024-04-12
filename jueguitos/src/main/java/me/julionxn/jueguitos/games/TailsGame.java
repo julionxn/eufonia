@@ -61,6 +61,15 @@ public class TailsGame extends SimpleMinigame {
     }
 
     @Override
+    public void tick() {
+        if (timer == null) return;
+        if (timer.isDone()){
+            players.forEach(player -> player.sendMessage(Text.of("Juego terminado.")));
+            reset();
+        }
+    }
+
+    @Override
     public void onPlayerHitAnother(PlayerEntity source, PlayerEntity target) {
         if (teamsInfo == null) return;
         getTeamOfPlayers(source, target).ifPresent(teams -> {

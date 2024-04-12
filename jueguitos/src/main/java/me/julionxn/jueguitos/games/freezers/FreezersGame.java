@@ -8,6 +8,7 @@ import me.julionxn.jueguitos.core.teams.distribution.Distribution;
 import me.julionxn.jueguitos.games.freezers.networking.packets.S2C_SetFreezeStatePacket;
 import me.julionxn.jueguitos.games.freezers.util.Freeze;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,6 +58,15 @@ public class FreezersGame extends SimpleMinigame {
     @Override
     protected void onReset() {
 
+    }
+
+    @Override
+    public void tick() {
+        if (timer == null) return;
+        if (timer.isDone()){
+            players.forEach(player -> player.sendMessage(Text.of("Juego terminado.")));
+            reset();
+        }
     }
 
     @Override
