@@ -1,8 +1,6 @@
 package me.julionxn.jueguitosclient.games.freezers;
 
 import me.julionxn.jueguitosclient.core.BasicClientMinigame;
-import me.julionxn.jueguitosclient.core.ClientMinigame;
-import me.julionxn.jueguitosclient.core.timer.BasicTimer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 

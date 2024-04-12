@@ -5,12 +5,9 @@ import me.julionxn.jueguitos.core.teams.Team;
 import me.julionxn.jueguitos.core.teams.TeamColor;
 import me.julionxn.jueguitos.core.teams.TeamsSetup;
 import me.julionxn.jueguitos.core.teams.distribution.Distribution;
-import me.julionxn.jueguitos.games.freezers.networking.FreezersServerPackets;
 import me.julionxn.jueguitos.games.freezers.networking.packets.S2C_SetFreezeStatePacket;
 import me.julionxn.jueguitos.games.freezers.util.Freeze;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;

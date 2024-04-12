@@ -2,7 +2,6 @@ package me.julionxn.jueguitos.games.freezers.networking;
 
 import me.julionxn.jueguitos.core.networking.C2SPacket;
 import me.julionxn.jueguitos.core.networking.S2CPacket;
-import me.julionxn.jueguitos.core.networking.packets.S2C_GameStateEventPacket;
 import me.julionxn.jueguitos.games.freezers.networking.packets.S2C_SetFreezeStatePacket;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 

@@ -1,10 +1,8 @@
 package me.julionxn.jueguitosclient.games;
 
 import me.julionxn.jueguitosclient.core.BasicClientMinigame;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.Text;
 
 public class HotPotatoClientGame extends BasicClientMinigame {
 

@@ -7,14 +7,12 @@ import net.minecraft.util.math.Vec3d;
 
 public class Zone {
 
-    public final String teamId;
     @Expose
     public final int[] from;
     @Expose
     public final int[] to;
 
-    public Zone(String teamId, int[] from, int[] to){
-        this.teamId = teamId;
+    public Zone(int[] from, int[] to){
         this.from = from;
         this.to = to;
     }
