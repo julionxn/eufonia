@@ -20,7 +20,8 @@
 		]
 	},
 	"mixins": [
-		"jueguitosclient.mixins.json"
+		"jueguitosclient.mixins.json",
+		"freezersclientgame.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.9",
