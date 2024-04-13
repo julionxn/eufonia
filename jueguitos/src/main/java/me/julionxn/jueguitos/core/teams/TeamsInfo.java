@@ -1,6 +1,7 @@
 package me.julionxn.jueguitos.core.teams;
 
 import me.julionxn.jueguitos.Jueguitos;
+import me.julionxn.jueguitos.core.managers.GameStateManager;
 import me.julionxn.jueguitos.core.teams.distribution.DistributionType;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -138,12 +139,14 @@ public class TeamsInfo {
         this.players.put(player.getUuid(), team);
         String teamId = team.id();
         player.addCommandTag(teamId);
+        GameStateManager.getInstance().addToScoreboardTeam(player, team.teamColor());
     }
 
     public void removeTeamFromPlayer(PlayerEntity player){
         Team team = this.players.remove(player.getUuid());
         if (team == null) return;
         player.removeScoreboardTag(team.id());
+        GameStateManager.getInstance().removeFromScoreboardTeam(player, team.teamColor());
     }
 
     /**

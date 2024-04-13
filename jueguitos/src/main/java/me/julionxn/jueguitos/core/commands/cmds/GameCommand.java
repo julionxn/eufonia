@@ -57,6 +57,7 @@ public class GameCommand {
     }
 
     private static int setActiveGame(ServerCommandSource src, String gameId){
+        GameStateManager.getInstance().setupTeams(src.getServer());
         boolean success = GameStateManager.getInstance().setActiveMinigame(gameId);
         if (!success) {
             src.sendFeedback(Text.of("El juego con id '" + gameId + "' no se ha logrado establecer."), false);

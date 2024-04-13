@@ -3,10 +3,15 @@ package me.julionxn.jueguitos.core.managers;
 import me.julionxn.jueguitos.core.Minigame;
 import me.julionxn.jueguitos.core.networking.ServerPackets;
 import me.julionxn.jueguitos.core.networking.packets.S2C_GameStateEventPacket;
+import me.julionxn.jueguitos.core.teams.TeamColor;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.scoreboard.ServerScoreboard;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -22,6 +27,7 @@ public class GameStateManager {
     private final HashMap<String, Minigame> registeredGames = new HashMap<>();
     private Minigame activeMinigame;
     private final Set<PlayerEntity> players = new HashSet<>();
+    private final HashMap<TeamColor, Team> teamColorTeamHashMap = new HashMap<>();
 
     /**
      * Registrar un minijuego del lado del servidor.
@@ -36,6 +42,34 @@ public class GameStateManager {
      */
     public HashMap<String, Minigame> getRegisteredGames(){
         return registeredGames;
+    }
+
+    public void setupTeams(MinecraftServer server){
+        if (!teamColorTeamHashMap.isEmpty()) return;
+        ServerScoreboard scoreboard = server.getScoreboard();
+        addTeam(scoreboard, "red", Formatting.RED, TeamColor.RED);
+        addTeam(scoreboard, "blue", Formatting.BLUE, TeamColor.BLUE);
+        addTeam(scoreboard, "yellow", Formatting.YELLOW, TeamColor.YELLOW);
+    }
+
+    private void addTeam(ServerScoreboard scoreboard, String id, Formatting color, TeamColor teamColor){
+        Team team = scoreboard.addTeam(id);
+        team.setColor(color);
+        teamColorTeamHashMap.put(teamColor, team);
+    }
+
+    public void addToScoreboardTeam(PlayerEntity player, TeamColor teamColor){
+        Team team = teamColorTeamHashMap.get(teamColor);
+        if (team == null) return;
+        System.out.println(player.getName().getString());
+        team.getScoreboard().addPlayerToTeam(player.getName().getString(), team);
+    }
+
+    public void removeFromScoreboardTeam(PlayerEntity player, TeamColor teamColor){
+        Team team = teamColorTeamHashMap.get(teamColor);
+        if (team == null) return;
+        System.out.println(player.getName().getString());
+        team.getScoreboard().removePlayerFromTeam(player.getName().getString(), team);
     }
 
     /**
