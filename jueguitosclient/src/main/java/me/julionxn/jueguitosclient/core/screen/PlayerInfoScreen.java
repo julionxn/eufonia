@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.julionxn.jueguitosclient.core.networking.ClientPackets;
 import me.julionxn.jueguitosclient.core.networking.packets.C2S_ChangeTeamPacket;
 import me.julionxn.jueguitosclient.core.networking.packets.C2S_KillPlayerPacket;
+import me.julionxn.jueguitosclient.core.screen.info.PlayersInfoScreen;
 import me.julionxn.jueguitosclient.core.teams.Team;
 import me.julionxn.jueguitosclient.core.teams.TeamColor;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -88,7 +89,7 @@ public class PlayerInfoScreen extends Screen {
             ClientPlayNetworking.send(ClientPackets.C2S_CHANGE_TEAM.getIdentifier(), buf);
         }
         if (client == null) return;
-        client.setScreen(new InfoScreen(gameId, new HashSet<>(teams)));
+        client.setScreen(new PlayersInfoScreen(gameId, new HashSet<>(teams)));
     }
 
     @Override

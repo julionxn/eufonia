@@ -18,7 +18,7 @@ public class PlayerHeadButtonWidget extends ButtonWidget {
     private final PlayerListEntry entry;
     private final TeamColor teamColor;
 
-    protected PlayerHeadButtonWidget(int x, int y, int width, int height, PressAction onPress, PlayerListEntry entry, TeamColor teamColor) {
+    public PlayerHeadButtonWidget(int x, int y, int width, int height, PressAction onPress, PlayerListEntry entry, TeamColor teamColor) {
         super(x, y, width, height, Text.of(""), onPress, DEFAULT_NARRATION_SUPPLIER);
         this.entry = entry;
         this.teamColor = teamColor;

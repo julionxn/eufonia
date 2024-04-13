@@ -2,7 +2,7 @@ package me.julionxn.jueguitosclient.core.networking.packets;
 
 import me.julionxn.jueguitosclient.JueguitosClient;
 import me.julionxn.jueguitosclient.core.networking.S2CPacket;
-import me.julionxn.jueguitosclient.core.screen.InfoScreen;
+import me.julionxn.jueguitosclient.core.screen.info.TeamsInfoScreen;
 import me.julionxn.jueguitosclient.core.teams.Team;
 import me.julionxn.jueguitosclient.core.teams.TeamColor;
 import net.minecraft.client.MinecraftClient;
@@ -44,8 +44,9 @@ public class S2C_OpenInfoScreenPacket implements S2CPacket {
             teams.add(team);
         }
         client.execute(() -> {
-            client.setScreen(new InfoScreen(gameId, teams));
+            client.setScreen(new TeamsInfoScreen(gameId, teams));
         });
+
     }
 
 }

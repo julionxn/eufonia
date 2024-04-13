@@ -1,34 +1,17 @@
-package me.julionxn.jueguitosclient.core.screen;
+package me.julionxn.jueguitosclient.core.screen.info;
 
+import me.julionxn.jueguitosclient.core.screen.PlayerHeadButtonWidget;
+import me.julionxn.jueguitosclient.core.screen.PlayerInfoScreen;
 import me.julionxn.jueguitosclient.core.teams.Team;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 
 import java.util.Set;
 
-public class InfoScreen extends Screen {
+public class PlayersInfoScreen extends BasicInfoScreen {
 
-    private final String gameId;
-    private final Set<Team> teams;
-    private final int playersAmount;
-
-    public InfoScreen(String gameId, Set<Team> teams) {
-        super(Text.of("InfoScreen"));
-        this.gameId = gameId;
-        this.teams = teams;
-        int playersAmount = 0;
-        MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        if (minecraftClient != null) {
-            for (Team team : teams) {
-                team.setupPlayers(minecraftClient);
-                playersAmount += team.getUuids().size();
-            }
-        }
-        this.playersAmount = playersAmount;
+    public PlayersInfoScreen(String gameId, Set<Team> teams) {
+        super(gameId, teams);
     }
 
     @Override
@@ -55,14 +38,6 @@ public class InfoScreen extends Screen {
                 addDrawableChild(btn);
             }
         }
-    }
-
-    @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
-        if (client == null) return;
-        int x = client.getWindow().getScaledWidth() / 2;
-        drawCenteredTextWithShadow(matrices, client.textRenderer, gameId, x, 20, 0xffffff);
     }
 
 }

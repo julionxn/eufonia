@@ -205,7 +205,11 @@ public class TeamsInfo {
      */
     public Set<PlayerEntity> getPlayersInTeam(Set<PlayerEntity> players, String id){
         return players.stream()
-                .filter(player -> this.players.get(player.getUuid()).id().equals(id))
+                .filter(player -> {
+                    UUID uuid = player.getUuid();
+                    if (!this.players.containsKey(uuid)) return false;
+                    return this.players.get(uuid).id().equals(id);
+                })
                 .collect(Collectors.toSet());
     }
 

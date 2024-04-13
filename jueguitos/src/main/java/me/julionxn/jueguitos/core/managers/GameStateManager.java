@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Clase encargada de manejar y contener al juego que se encuentra activo en la parte del servidor.
@@ -129,7 +130,10 @@ public class GameStateManager {
      */
     public boolean startGame(@Nullable String args){
         if (activeMinigame == null) return false;
-        return activeMinigame.start(players, parseArgs(args));
+        Set<PlayerEntity> playerEntitySet = players.stream()
+                .filter(player -> !((ServerPlayerEntity) player).isDisconnected())
+                .collect(Collectors.toSet());
+        return activeMinigame.start(playerEntitySet, parseArgs(args));
     }
 
     /**
