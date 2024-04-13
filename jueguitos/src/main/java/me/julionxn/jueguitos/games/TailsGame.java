@@ -77,9 +77,9 @@ public class TailsGame extends SimpleMinigame {
             Team sourceTeam = teams.sourceTeam();
             if (targetTeam.id().equals(TAILS_TEAM) && !sourceTeam.id().equals(TAILS_TEAM)){
                 tailed(source);
-                teamsInfo.addPlayerToTeam(source, targetTeam);
+                teamsInfo.setTeamOfPlayer(source, targetTeam);
                 destailed(target);
-                teamsInfo.addPlayerToTeam(target, sourceTeam);
+                teamsInfo.setTeamOfPlayer(target, sourceTeam);
             }
         });
     }

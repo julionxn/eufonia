@@ -3,6 +3,7 @@ package me.julionxn.jueguitos.games.freezers.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import me.julionxn.jueguitos.games.AllGames;
 import me.julionxn.jueguitos.games.freezers.networking.FreezersServerPackets;
 import me.julionxn.jueguitos.games.freezers.networking.packets.S2C_SetFreezeStatePacket;
 import me.julionxn.jueguitos.games.freezers.util.Freeze;
@@ -22,15 +23,19 @@ public class FreezeCommand {
                                 CommandManager.RegistrationEnvironment registrationEnvironment) {
 
         dispatcher.register(
-                CommandManager.literal("freeze").requires(source -> source.hasPermissionLevel(2)).then(
-                        CommandManager.argument("targets", EntityArgumentType.players())
-                                .then(
-                                        CommandManager.literal("set").executes(ctx -> freeze(ctx, true))
-                                )
-                                .then(
-                                        CommandManager.literal("unset").executes(ctx -> freeze(ctx, false))
-                                )
-                )
+                CommandManager.literal("freeze").requires(source -> source.hasPermissionLevel(2))
+                        .then(
+                                CommandManager.argument("targets", EntityArgumentType.players())
+                                        .then(
+                                                CommandManager.literal("set").executes(ctx -> freeze(ctx, true))
+                                        )
+                                        .then(
+                                                CommandManager.literal("unset").executes(ctx -> freeze(ctx, false))
+                                        )
+                        )
+                        .then(
+                                CommandManager.literal("reload").executes(FreezeCommand::reload)
+                        )
         );
 
     }
@@ -42,6 +47,11 @@ public class FreezeCommand {
             ((Freeze) player).eufonia$setFreeze(state);
             ServerPlayNetworking.send(player, FreezersServerPackets.S2C_SET_FREEZE_STATE.getIdentifier(), buf);
         }
+        return 1;
+    }
+
+    private static int reload(CommandContext<ServerCommandSource> ctx){
+        AllGames.FREEZERS_GAME.reloadConfig();
         return 1;
     }
 

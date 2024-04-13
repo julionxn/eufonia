@@ -61,7 +61,7 @@ public class LightsGame extends SimpleMinigame {
 
     public void markAsMoved(PlayerEntity player){
         if (teamsInfo == null) return;
-        teamsInfo.getTeam("losers").ifPresent(team -> teamsInfo.addPlayerToTeam(player, team));
+        teamsInfo.getTeam("losers").ifPresent(team -> teamsInfo.setTeamOfPlayer(player, team));
     }
 
     @Override

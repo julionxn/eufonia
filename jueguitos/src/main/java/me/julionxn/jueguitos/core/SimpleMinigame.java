@@ -121,6 +121,7 @@ public abstract class SimpleMinigame implements Minigame {
 
     @Override
     public void reset() {
+        if (cleared) return;
         cleared = true;
         stop();
         onReset();

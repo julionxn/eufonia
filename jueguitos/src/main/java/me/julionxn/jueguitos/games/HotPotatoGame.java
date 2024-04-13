@@ -82,9 +82,9 @@ public class HotPotatoGame extends SimpleMinigame {
             Team sourceTeam = teams.sourceTeam();
             if (sourceTeam.id().equals(POTATO_TEAM) && targetTeam.id().equals(CLEAN_TEAM)){
                 despotatoed(source);
-                teamsInfo.addPlayerToTeam(source, targetTeam);
+                teamsInfo.setTeamOfPlayer(source, targetTeam);
                 potatoed(target);
-                teamsInfo.addPlayerToTeam(target, sourceTeam);
+                teamsInfo.setTeamOfPlayer(target, sourceTeam);
             }
         });
     }

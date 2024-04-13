@@ -7,11 +7,13 @@ import me.julionxn.jueguitos.games.lights.LightsGame;
 
 public class AllGames {
 
+    public static final FreezersGame FREEZERS_GAME = new FreezersGame();
+
     public static void register(){
         register(new HotPotatoGame());
         register(new TailsGame());
         register(new DuckGooseGame());
-        register(new FreezersGame());
+        register(FREEZERS_GAME);
         register(new LightsGame());
     }
 

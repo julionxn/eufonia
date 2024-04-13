@@ -120,7 +120,7 @@ public class TeamsInfo {
     private void addRandomPlayerToTeam(List<PlayerEntity> players, Team team){
         int randomIndex = getRandomIndex(players);
         PlayerEntity pickedPlayer = players.get(randomIndex);
-        addPlayerToTeam(pickedPlayer, team);
+        setTeamOfPlayer(pickedPlayer, team);
         players.remove(randomIndex);
     }
 
@@ -130,7 +130,11 @@ public class TeamsInfo {
      * @param player El jugador
      * @param team El equipo
      */
-    public void addPlayerToTeam(PlayerEntity player, Team team){
+    public void setTeamOfPlayer(PlayerEntity player, Team team){
+        UUID uuid = player.getUuid();
+        if (players.containsKey(uuid)){
+            removeTeamFromPlayer(player);
+        }
         this.players.put(player.getUuid(), team);
         String teamId = team.id();
         player.addCommandTag(teamId);

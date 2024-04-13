@@ -37,7 +37,7 @@ public class C2S_ChangeTeamPacket implements C2SPacket {
             if (teamsInfo == null) return;
             teamsInfo.getTeam(newTeam).ifPresent(team -> {
                 teamsInfo.removeTeamFromPlayer(player);
-                teamsInfo.addPlayerToTeam(player, team);
+                teamsInfo.setTeamOfPlayer(player, team);
             });
         });
     }

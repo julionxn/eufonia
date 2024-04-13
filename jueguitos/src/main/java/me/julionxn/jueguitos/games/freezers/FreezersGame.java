@@ -41,8 +41,7 @@ public class FreezersGame extends SimpleMinigame {
     @Override
     public @NotNull TeamsSetup teamsSetup(TeamsSetup teamsSetup) {
         return teamsSetup.addTeam(new Team("red", TeamColor.RED, Distribution.remaining()))
-                .addTeam(new Team("blue", TeamColor.BLUE, Distribution.remaining()))
-                .addTeam(new Team("yellow", TeamColor.YELLOW, Distribution.remaining()));
+                .addTeam(new Team("blue", TeamColor.BLUE, Distribution.remaining()));
     }
 
     @Override
@@ -87,6 +86,10 @@ public class FreezersGame extends SimpleMinigame {
                 S2C_SetFreezeStatePacket.setFreezeState(target, false);
             }
         });
+    }
+
+    public void reloadConfig(){
+        config.load();
     }
 
 }
