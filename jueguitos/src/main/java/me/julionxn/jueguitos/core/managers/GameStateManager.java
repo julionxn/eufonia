@@ -62,14 +62,12 @@ public class GameStateManager {
     public void addToScoreboardTeam(PlayerEntity player, TeamColor teamColor){
         Team team = teamColorTeamHashMap.get(teamColor);
         if (team == null) return;
-        System.out.println(player.getName().getString());
         team.getScoreboard().addPlayerToTeam(player.getName().getString(), team);
     }
 
     public void removeFromScoreboardTeam(PlayerEntity player, TeamColor teamColor){
         Team team = teamColorTeamHashMap.get(teamColor);
         if (team == null) return;
-        System.out.println(player.getName().getString());
         team.getScoreboard().removePlayerFromTeam(player.getName().getString(), team);
     }
 
